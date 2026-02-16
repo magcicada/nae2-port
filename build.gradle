@@ -340,7 +340,8 @@ else {
     version = modVersion
 }
 
-group = modGroup
+group = project.hasProperty('group') ? project.property('group') : 'co.neeve.nae2'
+version = propertyString('mod_version')
 
 base {
     archivesName = modArchivesBaseName
@@ -1562,4 +1563,26 @@ if (getFile('addon.gradle').exists()) {
     apply from: 'addon.gradle'
 } else if (getFile('addon.gradle.kts').exists()) {
     apply from: 'addon.gradle.kts'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact(reobfJar) {
+                classifier = null 
+            }
+            
+            artifact(jar) {
+                classifier = 'dev'
+            }
+            
+            artifact(sourcesJar) {
+                classifier = 'sources'
+            }
+            
+            groupId = project.group
+            artifactId = propertyString('mod_id')
+            version = project.version
+        }
+    }
 }
