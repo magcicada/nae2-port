@@ -1580,7 +1580,7 @@ publishing {
             }
             
             groupId = project.group
-            artifactId = propertyString('modId')
+            artifactId = "nae2"
             version = project.version
         }
     }
